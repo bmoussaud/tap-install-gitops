@@ -1,3 +1,5 @@
+#@ load("@ytt:data", "data")
+---
 apiVersion: kappctrl.k14s.io/v1alpha1
 kind: App
 metadata:
@@ -10,7 +12,7 @@ spec:
   serviceAccountName: tap-install-gitops-sa
   fetch:
   - git:
-      url: https://github.com/alexandreroman/tap-install-gitops
+      url: #@ data.values.repository
       ref: origin/main
       secretRef:
         name: tap-install-gitops-github

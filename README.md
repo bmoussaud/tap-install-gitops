@@ -22,6 +22,12 @@ to every cluster. These tools are part of the TAP prerequisites.
 
 Make sure [Cluster Essentials for VMware Tanzu is deployed to your cluster](https://docs.vmware.com/en/Tanzu-Application-Platform/1.0/tap/GUID-install-general.html#install-cluster-essentials-for-vmware-tanzu-2).
 
+or install the 2 main components using the following command line
+
+```shell
+kapp deploy -a kc -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/latest/download/release.yml -y
+kapp deploy -a sc -f https://github.com/vmware-tanzu/carvel-secretgen-controller/releases/download/v0.8.0/release.yml -y
+```
 You don't need to use the `tanzu` CLI to apply the configuration with a GitOps approach:
 all `tanzu` commands described in the documentation have been integrated as YAML definitions.
 
@@ -123,7 +129,7 @@ Make sure these files are not publicly available (for obvious reasons!).
 You are now ready to apply the GitOps configuration:
 
 ```shell
-kapp deploy -a tap-install-gitops -f <(ytt -f gitops)
+kapp deploy -a tap-install-gitops -f <(ytt -f gitops --data-value repository=https://github.com/bmoussaud/tap-install-gitops)
 ```
 
 At this point, kapp-controller will monitor the Git repository: any updates
