@@ -50,6 +50,7 @@ secrets:
 imagePullSecrets:
   - name: registry-credentials
   - name: tap-registry
+  - name: dev-tap-registry
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role

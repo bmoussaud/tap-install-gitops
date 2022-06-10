@@ -13,3 +13,17 @@ spec:
       image: #@ "{}/tanzu-application-platform/tap-packages:{}".format(data.values.tap.credentials.tanzuNet.host, data.values.tap.version)
       secretRef:
         name: tap-registry
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageRepository
+metadata:
+  name: tanzu-tap-repository-dev
+  namespace: #@ data.values.tap.namespace
+  annotations:
+    kapp.k14s.io/change-group: tap-install/tap-repo
+spec:
+  fetch:
+    imgpkgBundle:
+      image: #@ "dev.{}/tanzu-application-platform/tap-packages:{}".format(data.values.tap.credentials.tanzuNet.host, data.values.tap.version)
+      secretRef:
+        name: dev-tap-registry
