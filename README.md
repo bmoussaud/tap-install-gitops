@@ -27,6 +27,7 @@ or install the 2 main components using the following command line
 ```shell
 kapp deploy -a kc -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/latest/download/release.yml -y
 kapp deploy -a sc -f https://github.com/vmware-tanzu/carvel-secretgen-controller/releases/download/v0.8.0/release.yml -y
+kubectl get deployments.apps -n kapp-controller kapp-controller -o yaml | rg "kapp-controller.carvel.dev/version"   
 ```
 You don't need to use the `tanzu` CLI to apply the configuration with a GitOps approach:
 all `tanzu` commands described in the documentation have been integrated as YAML definitions.
@@ -143,6 +144,8 @@ tanzu package installed list -n tap-install
 
 Enjoy!
 
+
+
 ## Contribute
 
 Contributions are always welcome!
@@ -154,3 +157,7 @@ Feel free to open issues & send PR.
 Copyright &copy; 2022 [VMware, Inc. or its affiliates](https://vmware.com).
 
 This project is licensed under the [Apache Software License version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+
+
+kubectl patch -n tap-install-gitops app/tap-install-gitops -p '{"metadata":{"finalizers":[]}}' --type=merge

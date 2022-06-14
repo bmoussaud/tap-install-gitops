@@ -6,3 +6,4 @@ local/configuration.yaml
 local/secrets.yaml
 current_values.yaml
 tap-values.yaml
+fixit
