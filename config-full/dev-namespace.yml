@@ -54,7 +54,7 @@ imagePullSecrets:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: default
+  name: tap-default
   namespace: #@ data.values.tap.devNamespace
 rules:
 - apiGroups: [source.toolkit.fluxcd.io]
@@ -111,8 +111,8 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: default
+  name: tap-default
 subjects:
   - kind: ServiceAccount
-    name: default
+    name: tap-default
 #@ end
