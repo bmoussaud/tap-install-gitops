@@ -22,28 +22,10 @@ type: kubernetes.io/dockerconfigjson
 stringData:
   .dockerconfigjson: #@ json.encode(config(""))
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: dev-tap-registry
-  namespace: #@ data.values.tap.namespace
-type: kubernetes.io/dockerconfigjson
-stringData:
-  .dockerconfigjson: #@ json.encode(config("dev."))
----
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretExport
 metadata:
   name: tap-registry
-  namespace: #@ data.values.tap.namespace
-spec:
-  toNamespaces:
-  - '*'
----
-apiVersion: secretgen.carvel.dev/v1alpha1
-kind: SecretExport
-metadata:
-  name: dev-tap-registry
   namespace: #@ data.values.tap.namespace
 spec:
   toNamespaces:
