@@ -2,3 +2,7 @@
 config-custom
 tap-install-secrets.yml
 tap-install-config.yml
+local/configuration.yaml
+local/secrets.yaml
+current_values.yaml
+tap-values.yaml
