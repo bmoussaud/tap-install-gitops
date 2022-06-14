@@ -2,10 +2,10 @@
 #@ load("@ytt:base64", "base64")
 #@ load("@ytt:json", "json")
 ---
-#@ def config(prefix):
+#@ def config():
 #@  return {
 #@    "auths": {
-#@      "{}{}".format(prefix,data.values.tap.credentials.tanzuNet.host): {
+#@      data.values.tap.credentials.tanzuNet.host: {
 #@        "username": data.values.tap.credentials.tanzuNet.username,
 #@        "password": data.values.tap.credentials.tanzuNet.password
 #@      }
@@ -20,7 +20,7 @@ metadata:
   namespace: #@ data.values.tap.namespace
 type: kubernetes.io/dockerconfigjson
 stringData:
-  .dockerconfigjson: #@ json.encode(config(""))
+  .dockerconfigjson: #@ json.encode(config())
 ---
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretExport
@@ -30,3 +30,4 @@ metadata:
 spec:
   toNamespaces:
   - '*'
+
