@@ -51,6 +51,17 @@ imagePullSecrets:
   - name: registry-credentials
   - name: tap-registry
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+  namespace: #@ data.values.tap.devNamespace
+secrets:
+  - name: registry-credentials
+imagePullSecrets:
+  - name: registry-credentials
+  - name: tap-registry
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
