@@ -126,4 +126,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: tap-default
+  - kind: ServiceAccount
+    name: default
 #@ end

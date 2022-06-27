@@ -5,7 +5,7 @@ export TAP_VERSION=1.2.0-build.12
 imgpkg copy -b registry.tanzu.vmware.com/tanzu-application-platform/tap-packages:${TAP_VERSION} --to-repo ${INSTALL_REGISTRY_HOSTNAME}/tap-packages
 kubectl create ns tap-install
 export INSTALL_REGISTRY_USERNAME=bmoussaud@vmware.com
-export INSTALL_REGISTRY_PASSWORD="j[YjNv2T@"
+export INSTALL_REGISTRY_PASSWORD="xxxxxxxxxxxx"
 export INSTALL_REGISTRY_HOSTNAME=registry.tanzu.vmware.com
 tanzu secret registry add tap-registry \
   --username ${INSTALL_REGISTRY_USERNAME} --password ${INSTALL_REGISTRY_PASSWORD} \
@@ -16,7 +16,7 @@ tanzu package repository add tanzu-tap-repository --url registry.tanzu.vmware.co
 
 export INSTALL_REGISTRY_HOSTNAME=bmoussaudregistry.azurecr.io
 export INSTALL_REGISTRY_USERNAME=bec9f366-9c73-4e4d-be5c-5bd9a8c4f89c
-export INSTALL_REGISTRY_PASSWORD=kiM8Q~q7783dnfvCOy9QYUmN4nKfuiMwrFV0Fda8
+export INSTALL_REGISTRY_PASSWORD=benoitkiM8Q~q7783dnfvCOy9QYUmN4nKfuiMwrFV0Fda8
 tanzu secret registry add tap-registry \
   --username ${INSTALL_REGISTRY_USERNAME} --password ${INSTALL_REGISTRY_PASSWORD} \
   --server ${INSTALL_REGISTRY_HOSTNAME} \
