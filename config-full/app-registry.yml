@@ -17,17 +17,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: app-registry
-  namespace: #@ data.values.tap.namespace
+  namespace: #@ data.values.tap.devNamespace
 type: kubernetes.io/dockerconfigjson
 stringData:
   .dockerconfigjson: #@ json.encode(config())
----
-apiVersion: secretgen.carvel.dev/v1alpha1
-kind: SecretExport
-metadata:
-  name: app-registry
-  namespace: #@ data.values.tap.namespace
-spec:
-  toNamespaces:
-  - '*'
 
