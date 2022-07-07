@@ -4,7 +4,12 @@
 ---
 #@ def config():
 profile: full
+
+shared:
+  ingress_domain: #@ data.values.tap.domains.main
+
 ceip_policy_disclosed: true
+
 buildservice:
   kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
   kp_default_repository_username: #@ data.values.tap.credentials.registry.username
@@ -14,7 +19,9 @@ buildservice:
   descriptor_name: "full"
   enable_automatic_dependency_updates: true 
 
+
 supply_chain: basic
+
 ootb_supply_chain_basic:
   registry:
     server: #@ data.values.tap.registry.host
@@ -22,16 +29,11 @@ ootb_supply_chain_basic:
   gitops:
     ssh_secret: ""
 
-learningcenter:
-  ingressDomain: #@ data.values.tap.domains.learningCenter
-
 tap_gui:
-  service_type: ClusterIP
-  ingressEnabled: "true"
-  ingressDomain: #@ data.values.tap.domains.main
+  service_type: ClusterIP  
   app_config:
     app:
-      baseUrl: #@ "http://{}".format(data.values.tap.domains.tapGui)
+      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
     integrations:
       #@ if "github" in data.values.tap.credentials and "token" in data.values.tap.credentials.github:
       github:
@@ -45,9 +47,9 @@ tap_gui:
         target: #@ catalog
       #@ end
     backend:
-      baseUrl: #@ "http://{}".format(data.values.tap.domains.tapGui)
+      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
       cors:
-        origin: #@ "http://{}".format(data.values.tap.domains.tapGui)
+        origin: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
       #@ if "backstage" in data.values.tap.credentials and "database" in data.values.tap.credentials.backstage:
       backend:
         database:
@@ -71,7 +73,8 @@ tap_gui:
 
 metadata_store:
   app_service_type: LoadBalancer
- 
+  ns_for_export_app_cert: #@ data.values.tap.devNamespace
+
 grype:
   namespace: #@ data.values.tap.devNamespace
   targetImagePullSecret: "tap-registry"
@@ -81,8 +84,6 @@ contour:
     service:
       type: LoadBalancer
 
-cnrs:
-  domain_name: #@ data.values.tap.domains.knative
 #@ end
 ---
 apiVersion: v1
