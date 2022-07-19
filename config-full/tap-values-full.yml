@@ -16,9 +16,8 @@ buildservice:
   kp_default_repository_password: #@ data.values.tap.credentials.registry.password
   tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
   tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
-  descriptor_name: "full"
-  enable_automatic_dependency_updates: true
-  exclude_dependencies: true
+  descriptor_name: "full"  
+  exclude_dependencies: false
 
 supply_chain: basic
 
