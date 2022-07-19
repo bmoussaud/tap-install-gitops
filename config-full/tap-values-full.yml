@@ -29,11 +29,15 @@ ootb_supply_chain_basic:
   gitops:
     ssh_secret: ""
 
+
 tap_gui:
   service_type: ClusterIP
   app_config:
     app:
       baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
+    customize:
+      custom_logo_not_used: 'BASE-64-IMAGE'
+      custom_name: "The Benoat's VMware Tanzu Application Platform"
     integrations:
       #@ if "github" in data.values.tap.credentials and "token" in data.values.tap.credentials.github:
       github:
