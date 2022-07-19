@@ -37,7 +37,7 @@ tap_gui:
       baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
     customize:
       custom_logo_not_used: 'BASE-64-IMAGE'
-      custom_name: #@ "The Benoit's VMware Tanzu Application Platform v".format(data.values.tap.version)
+      custom_name: #@ "The Benoit's VMware Tanzu Application Platform version ".format(data.values.tap.version)
     organization:
       name: 'MicroPet Corp IT Department'
     integrations:
