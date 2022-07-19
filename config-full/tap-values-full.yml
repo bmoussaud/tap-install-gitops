@@ -87,7 +87,7 @@ contour:
 
 scanning:
   metadataStore:
-    url: "" # Disable embedded integration since it's deprecated
+    url: "" 
 #@ end
 ---
 apiVersion: v1
