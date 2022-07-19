@@ -17,6 +17,7 @@ buildservice:
   tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
   tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password  
   exclude_dependencies: false
+  enable_automatic_dependency_updates: true
 
 supply_chain: basic
 
