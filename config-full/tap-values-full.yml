@@ -17,9 +17,8 @@ buildservice:
   tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
   tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
   descriptor_name: "full"
-  enable_automatic_dependency_updates: true 
+  enable_automatic_dependency_updates: true
   exclude_dependencies: true
-
 
 supply_chain: basic
 
@@ -31,21 +30,21 @@ ootb_supply_chain_basic:
     ssh_secret: ""
 
 tap_gui:
-  service_type: ClusterIP  
+  service_type: ClusterIP
   app_config:
     app:
       baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
     integrations:
       #@ if "github" in data.values.tap.credentials and "token" in data.values.tap.credentials.github:
       github:
-      - host: github.com
-        token: #@ data.values.tap.credentials.github.token
+        - host: github.com
+          token: #@ data.values.tap.credentials.github.token
       #@ end
     catalog:
       locations:
-      #@ for catalog in data.values.tap.catalogs:
-      - type: url
-        target: #@ catalog
+        #@ for catalog in data.values.tap.catalogs:
+        - type: url
+          target: #@ catalog
       #@ end
     backend:
       baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
@@ -60,7 +59,7 @@ tap_gui:
             port: #@ data.values.tap.credentials.backstage.database.port
             user: #@ data.values.tap.credentials.backstage.database.username
             password: #@ data.values.tap.credentials.backstage.database.password
-            ssl: {rejectUnauthorized: true}
+            ssl: { rejectUnauthorized: true }
       #@ end
     #@ if "github" in data.values.tap.credentials and "clientId" in data.values.tap.credentials.github and "clientSecret" in data.values.tap.credentials.github:
     auth:
@@ -74,7 +73,8 @@ tap_gui:
 
 metadata_store:
   app_service_type: LoadBalancer
-  ns_for_export_app_cert: #@ data.values.tap.devNamespace
+  ns_for_export_app_cert_not_used_1.1: #@ data.values.tap.devNamespace
+  ns_for_export_app_cert: "*"
 
 grype:
   namespace: #@ data.values.tap.devNamespace
@@ -88,8 +88,6 @@ contour:
 scanning:
   metadataStore:
     url: "" # Disable embedded integration since it's deprecated
-
-
 #@ end
 ---
 apiVersion: v1
@@ -117,5 +115,5 @@ spec:
       constraints: #@ str(data.values.tap.version)
   serviceAccountName: tap-default-sa
   values:
-  - secretRef:
-      name: tap-values
+    - secretRef:
+        name: tap-values
