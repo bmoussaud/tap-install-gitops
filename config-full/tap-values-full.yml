@@ -18,6 +18,7 @@ buildservice:
   tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
   descriptor_name: "full"
   enable_automatic_dependency_updates: true 
+  exclude_dependencies: true
 
 
 supply_chain: basic
@@ -83,6 +84,11 @@ contour:
   envoy:
     service:
       type: LoadBalancer
+
+scanning:
+  metadataStore:
+    url: "" # Disable embedded integration since it's deprecated
+
 
 #@ end
 ---
