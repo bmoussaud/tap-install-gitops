@@ -55,7 +55,7 @@ rules:
   resources: [imagerepositories]
   verbs: ['*']
 - apiGroups: [carto.run]
-  resources: [deliverables, runnables]
+  resources: [workloads,deliverables, runnables]
   verbs: ['*']
 - apiGroups: [kpack.io]
   resources: [images]
