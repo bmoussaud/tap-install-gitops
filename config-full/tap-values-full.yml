@@ -14,11 +14,8 @@ buildservice:
   kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
   kp_default_repository_username: #@ data.values.tap.credentials.registry.username
   kp_default_repository_password: #@ data.values.tap.credentials.registry.password
-  x_tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
-  x_tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
   exclude_dependencies: true
   enable_automatic_dependency_updates: false
-  x_descriptor_name: "full"
 
 supply_chain: basic
 
@@ -29,17 +26,16 @@ ootb_supply_chain_basic:
   gitops:
     ssh_secret: ""
 
-
 tap_gui:
   service_type: ClusterIP
   app_config:
     app:
       baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
     customize:
-      custom_logo: #@ data.values.tap.logo      
+      custom_logo: #@ data.values.tap.logo
       custom_name: #@ "The Benoit TAP Version.{}".format(data.values.tap.version)
     organization:
-      name: 'MicroPet Corp IT Department'
+      name: "MicroPet Corp IT Department"
     integrations:
       #@ if "github" in data.values.tap.credentials and "token" in data.values.tap.credentials.github:
       github:
