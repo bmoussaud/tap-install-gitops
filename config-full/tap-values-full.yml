@@ -29,6 +29,14 @@ ootb_supply_chain_basic:
 tap_gui:
   service_type: ClusterIP
   app_config:
+    proxy:
+      /metadata-store:
+        target: https://metadata-store-app.metadata-store:8443/api/v1
+        changeOrigin: true
+        secure: false
+        headers:
+          Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjRtc19QajJ5SS1jNkpSUWxhbHpUWUlJc2lTLXRVZjhJVUx6S0pfYVFtdXMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJtZXRhZGF0YS1zdG9yZSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJtZXRhZGF0YS1zdG9yZS1yZWFkLWNsaWVudC10b2tlbi1iNW5saiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJtZXRhZGF0YS1zdG9yZS1yZWFkLWNsaWVudCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjZjODNmNTgzLTI3ZjktNDVkNy1hNTkyLWE0OTM4MGZlYjQyYiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDptZXRhZGF0YS1zdG9yZTptZXRhZGF0YS1zdG9yZS1yZWFkLWNsaWVudCJ9.WNcWi2Ix6gUldcxo679qgWpfEZBLK15uL2cC0i4tWkn8vKoyek9wHCPqqBfXjK-eYDhRDy2-b8IUq7AWChnCr0VvH1223PGN17XHlrRZCj_XZepxrXFKRhM__u4Z7g6JTyJOO3ulea8YAKUTBhF3BeWUqD6D5lkzx3LxY-cnqxzmRS9i0BelLkweCWNFduIH8hIgxDb5taqw7R7Ptoy_jucW2f1wifKlf4tZS6m-NELKyAu66uNNXPw-oM2aroL5hQZElZW3jviuRDdi80Hw1MJCTEZNH_1357AyiV5TqMaeeIQ7FBZ4q83zVW5cxA14algWokwR3S-k2G3wyRdkA8TTMGnhqTap_fnO7aCqeCBwpvsXqEGNUB6JLwanU4cQvc413w7nfoIB0xmAhstCUQKlDFgCv7DYqRgjEvxC1iLcZ73H1rUAHZiPhWAJqp6_hQxBdn3-wSL20ZjBYhnl--4yAA9mIruExsghZnYIjSAgEmtLNTGRvVBCIhYdW2ZV3fBSf4oX8Rn1RlzCSKJCngYh8XDlXM_IsAM5_kIhQsn8d5e-WISW91U20hW7gPB_yFtfGh8wLrdTmveotekPXOsyRjq5gY7IQBFaZCz7nfw0hD8u1ci2YhmCsV99X6iahE11FBKV29eU2vKMXlxsTMbvf2k8tSEl196yBVmNfrU"
+          X-Custom-Source: project-star
     app:
       baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
     customize:
