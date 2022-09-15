@@ -17,9 +17,17 @@ buildservice:
   exclude_dependencies: true
   enable_automatic_dependency_updates: false
 
-supply_chain: basic
+supply_chain: #@ data.values.tap.supply_chain
 
+#@ if/end data.values.tap.supply_chain == 'basic':
 ootb_supply_chain_basic:
+  registry:
+    server: #@ data.values.tap.registry.host
+    repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
+  gitops:
+    ssh_secret: ""
+#@ if/end data.values.tap.supply_chain == 'testing_scanning':
+ootb_supply_chain_testing_scanning:
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
