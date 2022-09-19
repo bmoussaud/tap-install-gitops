@@ -74,7 +74,7 @@ rules:
     verbs: ["*"]
   - apiGroups: [tekton.dev]
     resources: [pipelines]
-    verbs: ["list"]
+    verbs: ["*"]
   - apiGroups: [kappctrl.k14s.io]
     resources: [apps]
     verbs: ["*"]
