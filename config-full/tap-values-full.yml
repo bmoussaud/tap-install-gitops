@@ -92,7 +92,8 @@ tap_gui:
 metadata_store:
   app_service_type: LoadBalancer
   ns_for_export_app_cert_not_used_1.1: #@ data.values.tap.devNamespace
-  ns_for_export_app_cert: "*"
+  ns_for_export_app_cert_x: "*"
+  ns_for_export_app_cert: #@ data.values.tap.devNamespace
 
 grype:
   namespace: #@ data.values.tap.devNamespace
