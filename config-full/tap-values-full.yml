@@ -38,7 +38,7 @@ tap_gui:
   service_type: ClusterIP
   app_config:
     proxy:
-      /metadata-store:
+      /metadata-storeXXXXX:
         target: https://metadata-store-app.metadata-store:8443/api/v1
         changeOrigin: true
         secure: false
@@ -94,6 +94,7 @@ metadata_store:
   ns_for_export_app_cert_not_used_1.1: #@ data.values.tap.devNamespace
   ns_for_export_app_cert_x: "*"
   ns_for_export_app_cert: #@ data.values.tap.devNamespace
+  ingress_enabled: "true" 
 
 grype:
   namespace: #@ data.values.tap.devNamespace
