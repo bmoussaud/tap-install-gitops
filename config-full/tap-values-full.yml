@@ -34,6 +34,14 @@ ootb_supply_chain_testing_scanning:
   gitops:
     ssh_secret: ""
 
+#@ if/end data.values.tap.supply_chain == 'testing':
+ootb_supply_chain_testing:
+  registry:
+    server: #@ data.values.tap.registry.host
+    repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
+  gitops:
+    ssh_secret: ""
+
 tap_gui:
   service_type: ClusterIP
   app_config:
