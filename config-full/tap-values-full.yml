@@ -113,6 +113,10 @@ contour:
     service:
       type: LoadBalancer
 
+accelerators:
+  ingress:
+    include: true
+
 scanning:
   metadataStore:
     url: ""
