@@ -7,6 +7,7 @@ profile: full
 
 shared:
   ingress_domain: #@ data.values.tap.domains.main
+  include: true
 
 ceip_policy_disclosed: true
 
@@ -112,10 +113,6 @@ contour:
   envoy:
     service:
       type: LoadBalancer
-
-accelerators:
-  ingress:
-    include: true
 
 scanning:
   metadataStore:
