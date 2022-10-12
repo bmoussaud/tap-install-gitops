@@ -7,8 +7,7 @@ profile: full
 
 shared:
   ingress_domain: #@ data.values.tap.domains.main
-  include: true
-
+  
 ceip_policy_disclosed: true
 
 buildservice:
