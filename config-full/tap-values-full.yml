@@ -5,6 +5,10 @@
 #@ def config():
 profile: full
 
+accelerator:
+  ingress:
+    include: true
+    
 shared:
   ingress_domain: #@ data.values.tap.domains.main
   
