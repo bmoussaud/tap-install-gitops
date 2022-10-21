@@ -27,6 +27,7 @@ metadata:
   namespace: #@ data.values.tap.devNamespace
 secrets:
   - name: app-registry
+  - name: git-ssh
 imagePullSecrets:
   - name: app-registry
   - name: tap-registry
@@ -38,6 +39,7 @@ metadata:
   namespace: #@ data.values.tap.devNamespace
 secrets:
   - name: app-registry
+  - name: git-ssh
 imagePullSecrets:
   - name: app-registry
   - name: tap-registry
@@ -103,7 +105,17 @@ rules:
         "jobs",
       ]
     verbs: ["*"]
-
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-ssh
+  annotations:
+    tekton.dev/git-0: #@ data.values.git.server
+type: kubernetes.io/basic-auth
+stringData:
+  username: #@ data.values.git.username
+  password: #@ data.values.git.token
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
