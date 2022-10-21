@@ -111,11 +111,11 @@ kind: Secret
 metadata:
   name: git-ssh
   annotations:
-    tekton.dev/git-0: #@ data.values.credentials.git.server
+    tekton.dev/git-0: #@ data.values.tap.credentials.git.server
 type: kubernetes.io/basic-auth
 stringData:
-  username: #@ data.values.credentials.git.username
-  password: #@ data.values.credentials.git.token
+  username: #@ data.values.tap.credentials.git.username
+  password: #@ data.values.tap.credentials.git.token
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
