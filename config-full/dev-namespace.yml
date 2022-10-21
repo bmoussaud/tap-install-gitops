@@ -110,6 +110,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: git-ssh
+  namespace: #@ data.values.tap.devNamespace
   annotations:
     tekton.dev/git-0: #@ data.values.tap.credentials.git.server
 type: kubernetes.io/basic-auth
