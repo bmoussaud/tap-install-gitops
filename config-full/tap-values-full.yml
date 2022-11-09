@@ -44,6 +44,9 @@ ootb_supply_chain_testing:
   gitops:
     ssh_secret: ""
 
+excluded_packages:
+- policy.apps.tanzu.vmware.com
+
 tap_gui:
   service_type: ClusterIP
   app_config:
