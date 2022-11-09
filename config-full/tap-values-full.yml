@@ -11,6 +11,10 @@ accelerator:
     
 shared:
   ingress_domain: #@ data.values.tap.domains.main
+  image_registry:
+    #project_path: #@ data.values.tap.credentials.registry
+    username: #@ data.values.tap.credentials.registry.username
+    password: #@ data.values.tap.credentials.registry.password
   
 ceip_policy_disclosed: true
 
@@ -103,7 +107,7 @@ tap_gui:
     #@ end
 
 metadata_store:
-  app_service_type: LoadBalancer
+  app_service_type: ClusterIP
   ns_for_export_app_cert_not_used_1.1: #@ data.values.tap.devNamespace
   ns_for_export_app_cert_x: "*"
   ns_for_export_app_cert: #@ data.values.tap.devNamespace
