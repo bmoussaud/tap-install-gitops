@@ -12,7 +12,7 @@ accelerator:
 shared:
   ingress_domain: #@ data.values.tap.domains.main
   image_registry:
-    #project_path: #@ data.values.tap.credentials.registry
+    project_path: #@ data.values.tap.credentials.registry
     username: #@ data.values.tap.credentials.registry.username
     password: #@ data.values.tap.credentials.registry.password
   
