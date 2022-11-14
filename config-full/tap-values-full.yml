@@ -49,6 +49,8 @@ ootb_supply_chain_testing:
 
 excluded_packages:
   - policy.apps.tanzu.vmware.com
+  - learningcenter.tanzu.vmware.com
+  - workshops.learningcenter.tanzu.vmware.com
 
 tap_gui:
   service_type: ClusterIP
