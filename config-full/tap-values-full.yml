@@ -47,10 +47,10 @@ ootb_supply_chain_testing:
   gitops:
     ssh_secret: ""
 
-excluded_packages:
-  - policy.apps.tanzu.vmware.com
+excluded_packages:  
   - learningcenter.tanzu.vmware.com
   - workshops.learningcenter.tanzu.vmware.com
+  - image-policy-webhook.signing.apps.tanzu.vmware.com
 
 tap_gui:
   service_type: ClusterIP
