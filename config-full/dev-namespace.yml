@@ -50,6 +50,9 @@ metadata:
   name: tap-default
   namespace: #@ data.values.tap.devNamespace
 rules:
+  - apiGroups: [apis.apps.tanzu.vmware.com]
+    resources: [apidescriptors]
+    verbs: ["*"]
   - apiGroups: [source.toolkit.fluxcd.io]
     resources: [gitrepositories]
     verbs: ["*"]
