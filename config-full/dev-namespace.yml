@@ -50,6 +50,9 @@ metadata:
   name: tap-default
   namespace: #@ data.values.tap.devNamespace
 rules:
+  - apiGroups: [projectcontour.io]
+    resources: ["httpproxies"]
+    verbs: ["*"]
   - apiGroups: [apis.apps.tanzu.vmware.com]
     resources: [apidescriptors]
     verbs: ["*"]
