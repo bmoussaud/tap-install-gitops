@@ -58,9 +58,7 @@ ootb_supply_chain_testing:
 
 tap_gui:
   service_type: ClusterIP
-  app_config:    
-    app:
-      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
+  app_config:        
     customize:
       custom_logo: #@ data.values.tap.logo
       custom_name: #@ "The Benoit TAP Version.{}".format(data.values.tap.version)
@@ -86,10 +84,7 @@ tap_gui:
         headers:
           Authorization: "Bearer {{ .metadata_store_bearer_token }}"
           X-Custom-Source: project-star
-    backend:
-      baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
-      cors:
-        origin: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
+    backend:      
       #@ if "backstage" in data.values.tap.credentials and "database" in data.values.tap.credentials.backstage:
       backend:
         database:
