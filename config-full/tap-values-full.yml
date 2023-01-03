@@ -3,24 +3,37 @@
 
 ---
 #@ def config():
+
+
+shared:
+  ingress_domain: #@ data.values.tap.domains.main
+  image_registry:
+    project_path: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
+    username: #@ data.values.tap.credentials.registry.username
+    password: #@ data.values.tap.credentials.registry.password
+
+ceip_policy_disclosed: true
 profile: full
+
+excluded_packages:
+- learningcenter.tanzu.vmware.com
+- workshops.learningcenter.tanzu.vmware.com
+- policy.apps.tanzu.vmware.com
+- image-policy-webhook.signing.apps.tanzu.vmware.com
 
 accelerator:
   ingress:
     include: true
 
-shared:
-  ingress_domain: #@ data.values.tap.domains.main
-  image_registry:
-    username: #@ data.values.tap.credentials.registry.username
-    password: #@ data.values.tap.credentials.registry.password
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
 
-ceip_policy_disclosed: true
-
-buildservice:
-  kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
-  kp_default_repository_username: #@ data.values.tap.credentials.registry.username
-  kp_default_repository_password: #@ data.values.tap.credentials.registry.password
+#buildservice:
+#  kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
+#  kp_default_repository_username: #@ data.values.tap.credentials.registry.username
+#  kp_default_repository_password: #@ data.values.tap.credentials.registry.password
 
 supply_chain: #@ data.values.tap.supply_chain
 
@@ -47,22 +60,10 @@ ootb_supply_chain_testing:
   gitops:
     ssh_secret: "*"
   
-excluded_packages:  
-  - learningcenter.tanzu.vmware.com
-  - workshops.learningcenter.tanzu.vmware.com
-  - image-policy-webhook.signing.apps.tanzu.vmware.com
 
 tap_gui:
   service_type: ClusterIP
-  app_config:
-    proxy:
-      /metadata-store:
-        target: https://metadata-store-app.metadata-store:8443/api/v1
-        changeOrigin: true
-        secure: false
-        headers:
-          Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkN0TU4xcmRLTFhWYXBORENrakJ2SldMdE5oazhpRndDTHBvbHVFRllaUmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJtZXRhZGF0YS1zdG9yZSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJtZXRhZGF0YS1zdG9yZS1yZWFkLWNsaWVudCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJtZXRhZGF0YS1zdG9yZS1yZWFkLWNsaWVudCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6Ijc0MmMxNGY4LTgxYjItNDcyNi1iMWFmLTcyOTg2OWJiODJlZiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDptZXRhZGF0YS1zdG9yZTptZXRhZGF0YS1zdG9yZS1yZWFkLWNsaWVudCJ9.uQY_krExdQ3W0mQFZNnsHzZJXsf9Uvyx0XAxrLYzeGG-CrIVDeoNEYc8PuY-yZKFO0970M7mruF5bM0r6Df4JjUgp-d6aUA6qoOdV9defndmx9TyfUuZKjXhz4UF63vi0XeSa8vuZTPEiYQzdl04KoxurnrzDqQR8WZWLBB6znePy76qGJKAj7cFznoBJiWIw6ID1NdlHrQA5qOh_rgBpXkJgwB97x5mEXYagxOnc2P13Uvi0hwabgC-nndiBgweKRSckCHUzu94d8PXcUYjQjXXlrsFeJasqdKnHk0NtFkfQ_WEuhwJLo-Svzdhf8Regl8-bh4mC6WJtZDw5XXFg_1lBuSnSHqMQioE7PxHuvmYCko56ipcu-IWxEhaxAue9h8rPy7hz5EKPVEduj_24hqfB5LtyJTb3wW7gF2IeugBOnu2R0yiUBZHQDUqL28q3HEiYpgys4wFXxvFt6SgwNGhW9mukyfoU_AEJdQjl4zUEFEdxrP37zTneKeKPRR1bOlIxz00bKgpu3Ki3qC3Hi7yzFodVSrBsB5VmY9n0J68c5OU8sJaiJ2OPfmr3mn8AyHu3dkSbHeB7-reK9bUeC-QynP8spOfLqRHBlLOw5AcxP6lvzneuHWwbRYcV-AZFm5VD_35m7LZ4fALZJ_L8m1ymRpZSPh5NrjrZLoeN88"
-          X-Custom-Source: project-star
+  app_config:    
     app:
       baseUrl: #@ "http://tap-gui.{}".format(data.values.tap.domains.main)
     customize:
@@ -108,24 +109,17 @@ tap_gui:
     #@ end
 
 metadata_store:
-  app_service_type: ClusterIP
-  ns_for_export_app_cert_not_used_1.1: #@ data.values.tap.devNamespace
-  ns_for_export_app_cert_x: "*"
   ns_for_export_app_cert: #@ data.values.tap.devNamespace
-  ingress_enabled: "true"
+  app_service_type: ClusterIP
 
 grype:
   namespace: #@ data.values.tap.devNamespace
   targetImagePullSecret: "tap-registry"
 
-contour:
-  envoy:
-    service:
-      type: LoadBalancer
-
 scanning:
   metadataStore:
     url: ""
+
 #@ end
 ---
 apiVersion: v1
