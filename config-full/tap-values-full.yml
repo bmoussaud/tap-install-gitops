@@ -123,7 +123,6 @@ namespace_provisioner:
       - key: tap.mytanzu.xyz/my-tap-ns
         operator: Exists
   additional_sources:
-    # Add a custom workload service account and some secrets
     - git:
         ref: origin/main
         subPath: namespace-provisioner/custom-resources/workload-sa
