@@ -122,6 +122,13 @@ namespace_provisioner:
     matchExpressions:
       - key: tap.mytanzu.xyz/my-tap-ns
         operator: Exists
+  additional_sources:
+    # Add a custom workload service account and some secrets
+    - git:
+        ref: origin/main
+        subPath: namespace-provisioner/custom-resources/workload-sa
+        url: https://github.com/bmoussaud/micropets-app-operator.git
+      path: _ytt_lib/workload-sa
 
 #@ end
 ---

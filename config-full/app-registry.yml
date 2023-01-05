@@ -21,4 +21,13 @@ metadata:
 type: kubernetes.io/dockerconfigjson
 stringData:
   .dockerconfigjson: #@ json.encode(config())
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-registries-credentials
+  namespace: #@ data.values.tap.devNamespace
+type: kubernetes.io/dockerconfigjson
+stringData:
+  .dockerconfigjson: #@ json.encode(config())
 
