@@ -116,6 +116,11 @@ scanning:
   metadataStore:
     url: ""
 
+customgit:
+  server: https://github.com
+  username: bmoussaud
+  token: #@ data.values.git.token
+
 namespace_provisioner:
   controller: true
   namespace_selector:
