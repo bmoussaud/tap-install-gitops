@@ -4,7 +4,6 @@
 ---
 #@ def config():
 
-
 shared:
   ingress_domain: #@ data.values.tap.domains.main
   image_registry:
@@ -16,10 +15,10 @@ ceip_policy_disclosed: true
 profile: full
 
 excluded_packages:
-- learningcenter.tanzu.vmware.com
-- workshops.learningcenter.tanzu.vmware.com
-- policy.apps.tanzu.vmware.com
-- image-policy-webhook.signing.apps.tanzu.vmware.com
+  - learningcenter.tanzu.vmware.com
+  - workshops.learningcenter.tanzu.vmware.com
+  - policy.apps.tanzu.vmware.com
+  - image-policy-webhook.signing.apps.tanzu.vmware.com
 
 accelerator:
   ingress:
@@ -54,11 +53,10 @@ ootb_supply_chain_testing:
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
     ssh_secret: "*"
-  
 
 tap_gui:
   service_type: ClusterIP
-  app_config:        
+  app_config:
     customize:
       custom_logo: #@ data.values.tap.logo
       custom_name: #@ "The Benoit TAP Version.{}".format(data.values.tap.version)
@@ -72,7 +70,7 @@ tap_gui:
       #@ end
     catalog:
       locations:
-      #@ for catalog in data.values.tap.catalogs:
+        #@ for catalog in data.values.tap.catalogs:
         - type: url
           target: #@ catalog
       #@ end
@@ -84,7 +82,7 @@ tap_gui:
         headers:
           Authorization: "Bearer {{ .metadata_store_bearer_token }}"
           X-Custom-Source: project-star
-    backend:      
+    backend:
       #@ if "backstage" in data.values.tap.credentials and "database" in data.values.tap.credentials.backstage:
       backend:
         database:
@@ -117,6 +115,13 @@ grype:
 scanning:
   metadataStore:
     url: ""
+
+namespace_provisioner:
+  controller: true
+  namespace_selector:
+    matchExpressions:
+      - key: tap.mytanzu.xyz/my-tap-ns
+        operator: Exists
 
 #@ end
 ---
