@@ -119,7 +119,7 @@ scanning:
 customgit:
   server: https://github.com
   username: bmoussaud
-  token: #@ data.values.git.token
+  token: xxxxxxxxx
 
 namespace_provisioner:
   controller: true
