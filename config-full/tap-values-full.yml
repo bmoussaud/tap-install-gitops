@@ -3,7 +3,7 @@
 
 ---
 #@ def config():
-
+profile: full
 shared:
   ingress_domain: #@ data.values.tap.domains.main
   image_registry:
@@ -12,17 +12,23 @@ shared:
     password: #@ data.values.tap.credentials.registry.password
 
 ceip_policy_disclosed: true
-profile: full
+
 
 excluded_packages:
   - learningcenter.tanzu.vmware.com
   - workshops.learningcenter.tanzu.vmware.com
   - policy.apps.tanzu.vmware.com
   - image-policy-webhook.signing.apps.tanzu.vmware.com
+  - contour.tanzu.vmware.com
 
 accelerator:
   ingress:
     include: true
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
 
 supply_chain: #@ data.values.tap.supply_chain
 
@@ -99,8 +105,7 @@ tap_gui:
             clientSecret: #@ data.values.tap.credentials.github.clientSecret
     #@ end
 
-metadata_store:
-  ns_for_export_app_cert: "*"
+metadata_store: 
   app_service_type: ClusterIP
 
 grype:
