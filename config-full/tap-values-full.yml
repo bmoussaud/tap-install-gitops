@@ -131,7 +131,6 @@ namespace_provisioner:
         subPath: namespace-provisioner/custom-resources/overlays
         url: https://github.com/bmoussaud/micropets-app-operator.git
       path: _ytt_lib/customize
-
 #@ end
 ---
 apiVersion: v1
