@@ -19,7 +19,6 @@ excluded_packages:
   - workshops.learningcenter.tanzu.vmware.com
   - policy.apps.tanzu.vmware.com
   - image-policy-webhook.signing.apps.tanzu.vmware.com
-  - contour.tanzu.vmware.com
 
 accelerator:
   ingress:
@@ -115,11 +114,6 @@ grype:
 scanning:
   metadataStore:
     url: ""
-
-customgit:
-  server: https://github.com
-  username: bmoussaud
-  token: xxxxxxxxx
 
 namespace_provisioner:
   controller: true
