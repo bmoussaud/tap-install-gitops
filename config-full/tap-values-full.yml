@@ -13,7 +13,6 @@ shared:
 
 ceip_policy_disclosed: true
 
-
 excluded_packages:
   - learningcenter.tanzu.vmware.com
   - workshops.learningcenter.tanzu.vmware.com
@@ -104,7 +103,7 @@ tap_gui:
             clientSecret: #@ data.values.tap.credentials.github.clientSecret
     #@ end
 
-metadata_store: 
+metadata_store:
   app_service_type: ClusterIP
 
 grype:
@@ -127,6 +126,11 @@ namespace_provisioner:
         subPath: namespace-provisioner/custom-resources/workload-sa
         url: https://github.com/bmoussaud/micropets-app-operator.git
       path: _ytt_lib/workload-sa
+    - git:
+        ref: origin/main
+        subPath: namespace-provisioner/custom-resources/overlays
+        url: https://github.com/bmoussaud/micropets-app-operator.git
+      path: _ytt_lib/customize
 
 #@ end
 ---
