@@ -24,11 +24,6 @@ accelerator:
   ingress:
     include: true
 
-contour:
-  envoy:
-    service:
-      type: LoadBalancer
-
 supply_chain: #@ data.values.tap.supply_chain
 
 #@ if/end data.values.tap.supply_chain == 'basic':
