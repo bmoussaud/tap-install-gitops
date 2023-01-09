@@ -18,6 +18,7 @@ excluded_packages:
   - workshops.learningcenter.tanzu.vmware.com
   - policy.apps.tanzu.vmware.com
   - image-policy-webhook.signing.apps.tanzu.vmware.com
+  - contour.tanzu.vmware.com
 
 accelerator:
   ingress:
