@@ -5,9 +5,9 @@
 #@ def config():
 #@  return {
 #@    "auths": {
-#@      data.values.tap.credentials.tanzuNet.host: {
-#@        "username": data.values.tap.credentials.tanzuNet.username,
-#@        "password": data.values.tap.credentials.tanzuNet.password
+#@      data.values.tap.credentials.registry.host: {
+#@        "username": data.values.tap.credentials.registry.username,
+#@        "password": data.values.tap.credentials.registry.password
 #@      }
 #@    }
 #@  }
