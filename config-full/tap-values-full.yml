@@ -115,7 +115,7 @@ scanning:
     url: ""
 
 namespace_provisioner:
-  controller: true
+  controller: false
   namespace_selector:
     matchExpressions:
       - key: tap.mytanzu.xyz/my-tap-ns
