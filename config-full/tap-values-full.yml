@@ -30,6 +30,11 @@ contour:
 
 supply_chain: #@ data.values.tap.supply_chain
 
+gitops:
+  server_address: https://github.com/
+  repository_owner: bmoussaud
+  repository_name: micropets-app-gitops
+
 #@ if/end data.values.tap.supply_chain == 'basic':
 ootb_supply_chain_basic:
   registry:
@@ -113,6 +118,8 @@ grype:
 scanning:
   metadataStore:
     url: ""
+
+
 
 namespace_provisioner:
   controller: false
