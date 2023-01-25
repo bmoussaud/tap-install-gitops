@@ -51,7 +51,7 @@ ootb_supply_chain_testing:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
-    ssh_secret: "*"
+    ssh_secret: ""
 
 tap_gui:
   service_type: ClusterIP
