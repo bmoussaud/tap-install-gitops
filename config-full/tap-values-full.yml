@@ -18,7 +18,7 @@ excluded_packages:
   - workshops.learningcenter.tanzu.vmware.com
   - policy.apps.tanzu.vmware.com
   - image-policy-webhook.signing.apps.tanzu.vmware.com
-  
+
 accelerator:
   ingress:
     include: true
@@ -30,11 +30,6 @@ contour:
 
 supply_chain: #@ data.values.tap.supply_chain
 
-gitops:
-  server_address: https://github.com/
-  repository_owner: bmoussaud
-  repository_name: micropets-app-gitops
-
 #@ if/end data.values.tap.supply_chain == 'basic':
 ootb_supply_chain_basic:
   registry:
@@ -42,6 +37,10 @@ ootb_supply_chain_basic:
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
     ssh_secret: ""
+    server_address: https://github.com/
+    repository_owner: bmoussaud
+    repository_name: micropets-app-gitops
+
 #@ if/end data.values.tap.supply_chain == 'testing_scanning':
 ootb_supply_chain_testing_scanning:
   registry:
@@ -49,6 +48,9 @@ ootb_supply_chain_testing_scanning:
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
     ssh_secret: ""
+    server_address: https://github.com/
+    repository_owner: bmoussaud
+    repository_name: micropets-app-gitops
 
 #@ if/end data.values.tap.supply_chain == 'testing':
 ootb_supply_chain_testing:
@@ -57,6 +59,9 @@ ootb_supply_chain_testing:
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
     ssh_secret: ""
+    server_address: https://github.com/
+    repository_owner: bmoussaud
+    repository_name: micropets-app-gitops
 
 tap_gui:
   service_type: ClusterIP
@@ -118,8 +123,6 @@ grype:
 scanning:
   metadataStore:
     url: ""
-
-
 
 namespace_provisioner:
   controller: false
