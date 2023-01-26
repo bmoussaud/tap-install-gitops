@@ -62,6 +62,16 @@ ootb_supply_chain_testing:
     server_address: https://github.com/
     repository_owner: bmoussaud
     repository_name: micropets-app-gitops
+  supported_workloads:
+    - cluster_config_template_name: config-template 
+      type: web
+    - cluster_config_template_name: server-template 
+      type: server
+    - cluster_config_template_name: worker-template 
+      type: worker
+    - cluster_config_template_name: secured-config-template 
+      type: secured-web
+
 
 tap_gui:
   service_type: ClusterIP
