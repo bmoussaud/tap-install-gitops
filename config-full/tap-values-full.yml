@@ -106,8 +106,10 @@ tap_gui:
         target: https://metadata-store-app.metadata-store.svc.cluster.local:8443/api/v1
         changeOrigin: true                
         secure: true
+        #@ if not "empty" in data.values.tap.metadatastore.ca
         ca: #@ base64.decode(data.values.tap.metadatastore.ca)
         headers:          
+          #@ if not "empty" in data.values.tap.metadatastore.auth_token
           Authorization: #@ "Bearer " + data.values.tap.metadatastore.auth_token
           X-Custom-Source: project-star
     backend:
