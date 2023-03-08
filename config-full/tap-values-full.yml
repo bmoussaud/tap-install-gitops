@@ -162,6 +162,11 @@ namespace_provisioner:
       path: _ytt_lib/test-pipeline
     - git:
         ref: origin/main
+        subPath: namespace-provisioner/custom-resources/scanpolicies
+        url: https://github.com/bmoussaud/micropets-app-operator.git
+      path: _ytt_lib/scanpolicies
+    - git:
+        ref: origin/main
         subPath: namespace-provisioner/custom-resources/overlays
         url: https://github.com/bmoussaud/micropets-app-operator.git
       path: _ytt_lib/customize
