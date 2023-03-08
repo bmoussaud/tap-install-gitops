@@ -52,13 +52,13 @@ ootb_supply_chain_testing_scanning:
     repository_owner: bmoussaud
     repository_name: micropets-app-gitops
   supported_workloads:
-    - cluster_config_template_name: config-template 
+    - cluster_config_template_name: config-template
       type: web
-    - cluster_config_template_name: server-template 
+    - cluster_config_template_name: server-template
       type: server
-    - cluster_config_template_name: worker-template 
+    - cluster_config_template_name: worker-template
       type: worker
-    - cluster_config_template_name: secured-config-template 
+    - cluster_config_template_name: secured-config-template
       type: secured-web
 
 #@ if/end data.values.tap.supply_chain == 'testing':
@@ -72,15 +72,14 @@ ootb_supply_chain_testing:
     repository_owner: bmoussaud
     repository_name: micropets-app-gitops
   supported_workloads:
-    - cluster_config_template_name: config-template 
+    - cluster_config_template_name: config-template
       type: web
-    - cluster_config_template_name: server-template 
+    - cluster_config_template_name: server-template
       type: server
-    - cluster_config_template_name: worker-template 
+    - cluster_config_template_name: worker-template
       type: worker
-    - cluster_config_template_name: secured-config-template 
+    - cluster_config_template_name: secured-config-template
       type: secured-web
-
 
 tap_gui:
   service_type: ClusterIP
@@ -133,7 +132,7 @@ tap_gui:
     #@ end
 
 metadata_store:
-  ns_for_export_app_cert: #@ data.values.tap.devNamespace
+  ns_for_export_app_cert: "*"
   app_service_type: ClusterIP
 
 grype:
