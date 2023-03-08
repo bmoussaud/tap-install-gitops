@@ -1,6 +1,6 @@
 #@ load("@ytt:data", "data")
 #@ load("@ytt:yaml", "yaml")
-
+#@ load("@ytt:base64", "base64")
 ---
 #@ def config():
 profile: full
@@ -106,10 +106,10 @@ tap_gui:
         target: https://metadata-store-app.metadata-store.svc.cluster.local:8443/api/v1
         changeOrigin: true
         secure: true
-        #@ if "empty" not in data.values.tap.metadatastore.ca:        
+        #@ if "empty" not in data.values.tap.metadatastore.ca:
         ca: #@ base64.decode(data.values.tap.metadatastore.ca)
         #@ end
-        
+
         #@ if "empty" not in data.values.tap.metadatastore.auth_token:
         headers:
           Authorization: #@ "Bearer " + data.values.tap.metadatastore.auth_token
