@@ -102,12 +102,13 @@ tap_gui:
           target: #@ catalog
       #@ end
     proxy:
-      /metadata-store:
-        target: https://metadata-store-app.metadata-store:8443/api/v1
-        changeOrigin: true
-        secure: false
-        headers:
-          Authorization: "Bearer {{ .metadata_store_bearer_token }}"
+      /metadata-store:        
+        target: https://metadata-store-app.metadata-store.svc.cluster.local:8443/api/v1
+        changeOrigin: true                
+        secure: true
+        ca: #@ base64.decode(data.values.tap.metadatastore.ca)
+        headers:          
+          Authorization: #@ "Bearer " + data.values.tap.metadatastore.auth_token
           X-Custom-Source: project-star
     backend:
       #@ if "backstage" in data.values.tap.credentials and "database" in data.values.tap.credentials.backstage:
