@@ -155,6 +155,10 @@ namespace_provisioner:
   #!  matchExpressions:
   #!    - key: tap.mytanzu.xyz/my-tap-ns
   #!      operator: Exists
+  gitops_install:
+    ref: origin/main
+    subPath: applications/namespaces/current
+    url: https://github.com/bmoussaud/micropets-app-gitops.git
   additional_sources:
     - git:
         ref: origin/main
