@@ -19,6 +19,9 @@ excluded_packages:
   - policy.apps.tanzu.vmware.com
   - image-policy-webhook.signing.apps.tanzu.vmware.com
 
+excluded_templates:
+  - convention-template
+
 accelerator:
   ingress:
     include: true
