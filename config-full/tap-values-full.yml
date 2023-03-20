@@ -21,8 +21,10 @@ excluded_packages:
 
 ootb_templates:
   excluded_templates:
-    - 'convention-template'
+    - "convention-template"
 
+
+    
 accelerator:
   ingress:
     include: true
