@@ -165,10 +165,10 @@ namespace_provisioner:
     #! overwrite default limits set by the OOTB LimitRange for all namespaces
     limits:
       default:
-        cpu: 1500m
+        cpu: 1700m
         memory: 1500Mi
       defaultRequest:
-        cpu: 500m
+        cpu: 100m
         memory: 500Mi
   gitops_install:
     ref: origin/main
