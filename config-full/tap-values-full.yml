@@ -3,6 +3,11 @@
 #@ load("@ytt:base64", "base64")
 ---
 #@ def config():
+package_overlays:
+  - name: ootb-templates
+    secrets:
+      - name: git-writer-no-empty-commits
+
 profile: full
 shared:
   ingress_domain: #@ data.values.tap.domains.main
@@ -23,8 +28,6 @@ ootb_templates:
   excluded_templates:
     - "convention-template"
 
-
-    
 accelerator:
   ingress:
     include: true
