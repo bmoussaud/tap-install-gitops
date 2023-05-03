@@ -52,6 +52,9 @@ ootb_supply_chain_basic:
 
 #@ if/end data.values.tap.supply_chain == 'testing_scanning':
 ootb_supply_chain_testing_scanning:
+  carvel_package:
+    workflow_enabled: true
+    name_suffix: pkg.mytanzu.xyz
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
