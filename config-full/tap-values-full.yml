@@ -31,6 +31,7 @@ ootb_templates:
 accelerator:
   ingress:
     include: true
+    issuer: letsencrypt-http01-issuer
 
 contour:
   envoy:
