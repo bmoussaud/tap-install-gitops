@@ -104,7 +104,7 @@ tap_gui:
       custom_logo: #@ data.values.tap.logo
       custom_name: #@ "The Benoit TAP Version.{}".format(data.values.tap.version)
     organization:
-      name: "MicroPetss Corp IT Department"
+      name: "MicroPets Corp IT Department"
     integrations:
       #@ if "github" in data.values.tap.credentials and "token" in data.values.tap.credentials.github:
       github:
