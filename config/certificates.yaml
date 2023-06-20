@@ -9,7 +9,7 @@ metadata:
   namespace: cert-manager
   annotations:
     kapp.k14s.io/change-group: tap-install-gitops/certificates
-    kapp.k14s.io/change-rule: "upsert after upserting tap-install-gitops/app"
+    kapp.k14s.io/change-rule: "upsert after upserting tap-install-gitops/app"    
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
