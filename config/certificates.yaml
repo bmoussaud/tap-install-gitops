@@ -7,28 +7,33 @@ kind: ClusterIssuer
 metadata:
   name: letsencrypt-http01-issuer
   namespace: cert-manager
+  annotations:
+    kapp.k14s.io/change-group: tap-install-gitops/certificates
+    kapp.k14s.io/change-rule: "upsert after upserting tap-install-gitops/app"
 spec:
-  acme:    
-    server: https://acme-v02.api.letsencrypt.org/directory    
-    email: benoit@moussaud.org    
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: benoit@moussaud.org
     privateKeySecretRef:
       name: letsencrypt-http01-issuer
     solvers:
-    - http01:
-        ingress:
-          class: contour
+      - http01:
+          ingress:
+            class: contour
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   namespace: cert-manager
   name: tap-gui
+  annotations:
+    kapp.k14s.io/change-group: tap-install-gitops/certificates
+    kapp.k14s.io/change-rule: "upsert after upserting tap-install-gitops/app"
 spec:
   commonName: #@ "tap-gui.{}".format(data.values.tap.domains.main)
   dnsNames:
-    - #@ "tap-gui.{}".format(data.values.tap.domains.main)
+    -  #@ "tap-gui.{}".format(data.values.tap.domains.main)
   issuerRef:
     name: letsencrypt-http01-issuer
     kind: ClusterIssuer
   secretName: tap-gui
-
