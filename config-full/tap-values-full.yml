@@ -157,9 +157,6 @@ metadata_store:
   ns_for_export_app_cert: "*"
   app_service_type: ClusterIP
 
-grype:
-  namespace: #@ data.values.tap.devNamespace
-  targetImagePullSecret: "tap-registry"
 
 scanning:
   metadataStore:
