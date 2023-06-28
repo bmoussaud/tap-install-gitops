@@ -7,9 +7,10 @@ kind: ClusterIssuer
 metadata:
   name: letsencrypt-http01-issuer
   namespace: cert-manager
-  annotations:
+  annotations:    
     kapp.k14s.io/change-group: tap-install-gitops/certificates
-    kapp.k14s.io/change-rule: "upsert after upserting tap-install-gitops/app"    
+    kapp.k14s.io/change-rule.0: "upsert after upserting tap-install-gitops/app"
+    kapp.k14s.io/change-rule.1: "delete before deleting tap-install-gitops/app"       
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
