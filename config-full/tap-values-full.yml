@@ -3,10 +3,10 @@
 #@ load("@ytt:base64", "base64")
 ---
 #@ def config():
-package_overlays:
-  - name: ootb-templates
-    secrets:
-      - name: git-writer-no-empty-commits
+#!package_overlays:
+#!  - name: ootb-templates
+#!    secrets:
+#!      - name: git-writer-no-empty-commits
 
 profile: full
 shared:
@@ -156,7 +156,6 @@ tap_gui:
 metadata_store:
   ns_for_export_app_cert: "*"
   app_service_type: ClusterIP
-
 
 scanning:
   metadataStore:
