@@ -8,8 +8,7 @@ metadata:
   name: cert-manager.tanzu.vmware.com
   namespace: #@ data.values.tap.namespace
   annotations:
-    kapp.k14s.io/change-group: certmanager/install
-    kapp.k14s.io/exists: ""
+    kapp.k14s.io/change-group: pkg/certmanager    
     kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"    
     kapp.k14s.io/change-rule.1: "delete before deleting tap-install/tap-repo"
 spec:
@@ -27,7 +26,7 @@ metadata:
     #! https://carvel.dev/kapp/docs/v0.54.0/apply/#kappk14sioexists
     kapp.k14s.io/exists: ""
     #! Without this change-rule, kapp waits (indefinitely) for this CRD to exist in an earlier change-group.
-    kapp.k14s.io/change-rule.0: "upsert after upserting certmanager/install"
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkg/certmanager"
 spec:
   group: cert-manager.io
   names:    

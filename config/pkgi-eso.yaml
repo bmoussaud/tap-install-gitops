@@ -8,7 +8,7 @@ metadata:
   name: external-secrets.apps.tanzu.vmware.com  
   namespace: #@ data.values.tap.namespace
   annotations:
-    kapp.k14s.io/change-group: eso/install
+    kapp.k14s.io/change-group: pkg/eso
     kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"
     kapp.k14s.io/change-rule.1: "delete before deleting tap-install/tap-repo"
 spec:
@@ -32,7 +32,7 @@ metadata:
     #! https://carvel.dev/kapp/docs/v0.54.0/apply/#kappk14sioexists
     kapp.k14s.io/exists: ""
     #! Without this change-rule, kapp waits (indefinitely) for this CRD to exist in an earlier change-group.
-    kapp.k14s.io/change-rule.0: "upsert after upserting eso/install"
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkg/eso"
 spec:
   group: external-secrets.io
   names:
@@ -47,7 +47,7 @@ metadata:
   name: externalsecrets.external-secrets.io
   annotations:
     kapp.k14s.io/exists: ""
-    kapp.k14s.io/change-rule.0: "upsert after upserting eso/install"
+    kapp.k14s.io/change-rule.0: "upsert after upserting pkg/eso"
 spec:
   group: external-secrets.io
   names:
