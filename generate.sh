@@ -1,0 +1,2 @@
+source ~/.kube/acr/.akseutap5registry.config 
+ytt -f local --data-value-yaml git.token=${GIT_SSH_PASSWORD} --data-value-yaml registry.server=${INSTALL_REGISTRY_HOSTNAME} --data-value-yaml registry.username=${INSTALL_REGISTRY_USERNAME} --data-value-yaml registry.password=${INSTALL_REGISTRY_PASSWORD} --data-value repository=https://github.com/bmoussaud/tap-install-gitops
