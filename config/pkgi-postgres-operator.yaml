@@ -11,7 +11,8 @@ metadata:
     kapp.k14s.io/change-group: pkg/install
     kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"
     kapp.k14s.io/change-rule.1: "upsert after upserting certmanager/install"
-    kapp.k14s.io/change-rule.2: "delete before deleting tap-install/tap-repo"
+    kapp.k14s.io/change-rule.2: "upsert before upserting tap"
+    kapp.k14s.io/change-rule.3: "delete before deleting tap-install/tap-repo"
 spec:
   serviceAccountName: tap-default-sa
   packageRef:
