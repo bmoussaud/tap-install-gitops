@@ -1,27 +1,53 @@
-#@ load("@ytt:data", "data")
 #@ load("@ytt:yaml", "yaml")
-
+#@ load("@ytt:base64", "base64")
+#@ load("@ytt:data", "data")
 ---
 profile: full
+shared:
+  ingress_domain: #@ data.values.tap.domains.main
+  image_registry:
+    project_path: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
+    username: #@ data.values.tap.credentials.registry.username
+    password: #@ data.values.tap.credentials.registry.password
+
 ceip_policy_disclosed: true
-buildservice:
-  kp_default_repository: #@ "{}/{}".format(data.values.tap.registry.host, data.values.tap.registry.repositories.buildService)
-  kp_default_repository_username: #@ data.values.tap.credentials.registry.username
-  kp_default_repository_password: #@ data.values.tap.credentials.registry.password
-  tanzunet_username: #@ data.values.tap.credentials.tanzuNet.username
-  tanzunet_password: #@ data.values.tap.credentials.tanzuNet.password
-  descriptor_name: "full"
-  enable_automatic_dependency_updates: true 
+
+excluded_packages:
+  - learningcenter.tanzu.vmware.com
+  - workshops.learningcenter.tanzu.vmware.com
+  - policy.apps.tanzu.vmware.com
+  - image-policy-webhook.signing.apps.tanzu.vmware.com
+
+ootb_templates:
+  excluded_templates:
+    - "convention-template"
+
+accelerator:
+  ingress:
+    include: true
+    issuer: letsencrypt-http01-issuer
+
+contour:
+  envoy:
+    service:
+      type: LoadBalancer
 
 supply_chain: #@ data.values.tap.supply_chain
 
 #@ if/end data.values.tap.supply_chain == 'basic':
 ootb_supply_chain_basic:
+  carvel_package:
+    workflow_enabled: true
+    name_suffix: pkg.mytanzu.xyz
   registry:
     server: #@ data.values.tap.registry.host
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
     ssh_secret: ""
+    server_address: https://github.com/
+    repository_owner: bmoussaud
+    repository_name: micropets-app-gitops
+
 #@ if/end data.values.tap.supply_chain == 'testing_scanning':
 ootb_supply_chain_testing_scanning:
   registry:
@@ -29,33 +55,77 @@ ootb_supply_chain_testing_scanning:
     repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
   gitops:
     ssh_secret: ""
+    server_address: https://github.com/
+    repository_owner: bmoussaud
+    repository_name: micropets-app-gitops
+  supported_workloads:
+    - cluster_config_template_name: config-template
+      type: web
+    - cluster_config_template_name: server-template
+      type: server
+    - cluster_config_template_name: worker-template
+      type: worker
+    - cluster_config_template_name: secured-config-template
+      type: secured-web
 
-learningcenter:
-  ingressDomain: #@ data.values.tap.domains.learningCenter
+#@ if/end data.values.tap.supply_chain == 'testing':
+ootb_supply_chain_testing:
+  registry:
+    server: #@ data.values.tap.registry.host
+    repository: #@ data.values.tap.registry.repositories.ootbSupplyChain
+  gitops:
+    ssh_secret: ""
+    server_address: https://github.com/
+    repository_owner: bmoussaud
+    repository_name: micropets-app-gitops
+  supported_workloads:
+    - cluster_config_template_name: config-template
+      type: web
+    - cluster_config_template_name: server-template
+      type: server
+    - cluster_config_template_name: worker-template
+      type: worker
+    - cluster_config_template_name: secured-config-template
+      type: secured-web
 
 tap_gui:
+  #!tls:
+  #!  namespace: cert-manager
+  #!  secretName: tap-gui
   service_type: ClusterIP
-  ingressEnabled: "true"
-  ingressDomain: #@ data.values.tap.domains.main
   app_config:
-    app:
-      baseUrl: #@ "http://{}".format(data.values.tap.domains.tapGui)
+    customize:
+      custom_logo: #@ data.values.tap.logo
+      custom_name: #@ "The Benoit TAP Version.{}".format(data.values.tap.version)
+    organization:
+      name: "MicroPets Corp IT Department"
     integrations:
       #@ if "github" in data.values.tap.credentials and "token" in data.values.tap.credentials.github:
       github:
-      - host: github.com
-        token: #@ data.values.tap.credentials.github.token
+        - host: github.com
+          token: #@ data.values.tap.credentials.github.token
       #@ end
     catalog:
       locations:
-      #@ for catalog in data.values.tap.catalogs:
-      - type: url
-        target: #@ catalog
+        #@ for catalog in data.values.tap.catalogs:
+        - type: url
+          target: #@ catalog
       #@ end
+    proxy:
+      /metadata-store:
+        target: https://metadata-store-app.metadata-store.svc.cluster.local:8443/api/v1
+        changeOrigin: true
+        secure: true
+        #@ if "empty" not in data.values.tap.metadatastore.app_ca:
+        ca: #@ base64.decode(data.values.tap.metadatastore.app_ca)
+        #@ end
+
+        #@ if "empty" not in data.values.tap.metadatastore.auth_token:
+        headers:
+          Authorization: #@ "Bearer " + data.values.tap.metadatastore.auth_token
+          X-Custom-Source: project-star
+        #@ end
     backend:
-      baseUrl: #@ "http://{}".format(data.values.tap.domains.tapGui)
-      cors:
-        origin: #@ "http://{}".format(data.values.tap.domains.tapGui)
       #@ if "backstage" in data.values.tap.credentials and "database" in data.values.tap.credentials.backstage:
       backend:
         database:
@@ -65,7 +135,7 @@ tap_gui:
             port: #@ data.values.tap.credentials.backstage.database.port
             user: #@ data.values.tap.credentials.backstage.database.username
             password: #@ data.values.tap.credentials.backstage.database.password
-            ssl: {rejectUnauthorized: true}
+            ssl: { rejectUnauthorized: true }
       #@ end
     #@ if "github" in data.values.tap.credentials and "clientId" in data.values.tap.credentials.github and "clientSecret" in data.values.tap.credentials.github:
     auth:
@@ -78,16 +148,50 @@ tap_gui:
     #@ end
 
 metadata_store:
-  app_service_type: LoadBalancer
- 
-grype:
-  namespace: #@ data.values.tap.devNamespace
-  targetImagePullSecret: "tap-registry"
+  ns_for_export_app_cert: "*"
+  app_service_type: ClusterIP
 
-contour:
-  envoy:
-    service:
-      type: LoadBalancer
+scanning:
+  metadataStore:
+    url: ""
 
-cnrs:
-  domain_name: #@ data.values.tap.domains.knative
+namespace_provisioner:
+  controller: false
+  #! namespace_selector:
+  #!  matchExpressions:
+  #!    - key: tap.mytanzu.xyz/my-tap-ns
+  #!      operator: Exists
+  default_parameters:
+    #! overwrite default limits set by the OOTB LimitRange for all namespaces
+    limits:
+      default:
+        cpu: 1700m
+        memory: 1500Mi
+      defaultRequest:
+        cpu: 100m
+        memory: 500Mi
+  gitops_install:
+    ref: origin/main
+    subPath: applications/namespaces/current
+    url: https://github.com/bmoussaud/micropets-app-gitops.git
+  additional_sources:
+    - git:
+        ref: origin/main
+        subPath: namespace-provisioner/custom-resources/workload-sa
+        url: https://github.com/bmoussaud/micropets-app-operator.git
+      path: _ytt_lib/workload-sa
+    - git:
+        ref: origin/main
+        subPath: namespace-provisioner/custom-resources/test-pipeline
+        url: https://github.com/bmoussaud/micropets-app-operator.git
+      path: _ytt_lib/test-pipeline
+    - git:
+        ref: origin/main
+        subPath: namespace-provisioner/custom-resources/scanpolicies
+        url: https://github.com/bmoussaud/micropets-app-operator.git
+      path: _ytt_lib/scanpolicies
+    - git:
+        ref: origin/main
+        subPath: namespace-provisioner/custom-resources/overlays
+        url: https://github.com/bmoussaud/micropets-app-operator.git
+      path: _ytt_lib/customize
