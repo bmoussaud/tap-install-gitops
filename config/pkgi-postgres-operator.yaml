@@ -5,12 +5,13 @@
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
-  name: postgres-operator.sql.tanzu.vmware.com  
+  name: postgres-operator.sql.tanzu.vmware.com
   namespace: #@ data.values.tap.namespace
   annotations:
     kapp.k14s.io/change-group: pkg/install
     kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"
-    kapp.k14s.io/change-rule.1: "delete before deleting tap-install/tap-repo"    
+    kapp.k14s.io/change-rule.1: "delete before deleting tap-install/tap-repo"
+    kapp.k14s.io/change-rule.2: "upsert before upserting tap-install-gitops/app"
 spec:
   serviceAccountName: tap-default-sa
   packageRef:
@@ -18,4 +19,3 @@ spec:
     #! Version is unconstrained because:
     #! ==> Use the version included in the TDS PackageRepository
     versionSelection: {}
-

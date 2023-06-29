@@ -8,7 +8,7 @@ metadata:
   name: cert-manager.tanzu.vmware.com
   namespace: #@ data.values.tap.namespace
   annotations:
-    kapp.k14s.io/change-group: pkg/install
+    kapp.k14s.io/change-group: certmanager/install
     kapp.k14s.io/exists: ""
     kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"    
     kapp.k14s.io/change-rule.1: "delete before deleting tap-install/tap-repo"
