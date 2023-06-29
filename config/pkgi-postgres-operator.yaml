@@ -9,8 +9,8 @@ metadata:
   namespace: #@ data.values.tap.namespace
   annotations:
     kapp.k14s.io/change-group: pkg/install
-    kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tds-repo"    
-    kapp.k14s.io/change-rule.2: "upsert after upserting certmanager/install"
+    kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tds-repo"   
+    kapp.k14s.io/change-rule.2: "upsert after upserting certmanager/install"     
     kapp.k14s.io/change-rule.3: "delete before deleting tap-install/tap-repo"
 spec:
   serviceAccountName: tap-default-sa
