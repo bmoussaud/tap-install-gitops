@@ -6,7 +6,7 @@ metadata:
   name: tanzu-data-service-repository
   namespace: #@ data.values.tap.namespace
   annotations:
-    kapp.k14s.io/change-group: tap-install/tap-repo  
+    kapp.k14s.io/change-group: tap-install/tds-repo  
 spec:
   fetch:
     imgpkgBundle:
