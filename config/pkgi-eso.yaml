@@ -5,12 +5,12 @@
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
-  name: external-secrets.apps.tanzu.vmware.com  
+  name: external-secrets.apps.tanzu.vmware.com
   namespace: #@ data.values.tap.namespace
   annotations:
     kapp.k14s.io/change-group: pkg/eso
-    kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"
-    kapp.k14s.io/change-rule.1: "delete before deleting tap-install/tap-repo"
+    kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"    
+    kapp.k14s.io/change-rule.2: "delete before deleting tap-install/tap-repo"
 spec:
   serviceAccountName: tap-default-sa
   packageRef:

@@ -2,52 +2,19 @@
 #@ load("@ytt:base64", "base64")
 #@ load("@ytt:json", "json")
 ---
-apiVersion: packaging.carvel.dev/v1alpha1
-kind: PackageInstall
-metadata:
-  name: cert-manager.tanzu.vmware.com
-  namespace: #@ data.values.tap.namespace
-  annotations:
-    kapp.k14s.io/change-group: pkg/certmanager    
-    kapp.k14s.io/change-rule.0: "upsert after upserting tap-install/tap-repo"    
-    kapp.k14s.io/change-rule.1: "delete before deleting tap-install/tap-repo"
-spec:
-  serviceAccountName: tap-default-sa
-  packageRef:
-    refName: cert-manager.tanzu.vmware.com
-    #! Version is unconstrained because:
-    versionSelection: {}
----
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
-metadata:  
+metadata:
   name: certificates.cert-manager.io
   annotations:
     #! https://carvel.dev/kapp/docs/v0.54.0/apply/#kappk14sioexists
     kapp.k14s.io/exists: ""
     #! Without this change-rule, kapp waits (indefinitely) for this CRD to exist in an earlier change-group.
-    kapp.k14s.io/change-rule.0: "upsert after upserting pkg/certmanager"
+    kapp.k14s.io/change-rule.0: "upsert after upserting tap"
 spec:
   group: cert-manager.io
-  names:    
-    kind: Certificate    
+  names:
+    kind: Certificate
   scope: Namespaced
   versions:
     - name: v1
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  namespace: cert-manager
-  name: tap-gui
-  annotations:
-    kapp.k14s.io/change-group: tap-install-gitops/certificates
-    kapp.k14s.io/change-rule: "upsert after upserting tap-install-gitops/app"
-spec:
-  commonName: #@ "tap-gui.{}".format(data.values.tap.domains.main)
-  dnsNames:
-    -  #@ "tap-gui.{}".format(data.values.tap.domains.main)
-  issuerRef:
-    name: letsencrypt-http01-issuer
-    kind: ClusterIssuer
-  secretName: tap-gui
